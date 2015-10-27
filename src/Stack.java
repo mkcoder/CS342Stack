@@ -35,7 +35,7 @@ public class Stack<T>
 		StackNode<T> _tail = tail;
 		StackNode<T> temp = head;
 		StackNode<T> prev = null;
-		while ( temp != tail ) 
+		while ( temp != null ) 
 		{
 			prev = temp;
 			temp = temp.next;
