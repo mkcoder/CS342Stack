@@ -6,8 +6,15 @@ class StackNode <T>
 		this.data = data;
 	}
 	
+	public StackNode(T data, StackNode<T> node) 
+	{
+		this(data);
+		this.prev = node;
+	}
+
 	T data;
 	StackNode<T> next;
+	StackNode<T> prev;
 }
 
 public class Stack<T> 
@@ -17,31 +24,24 @@ public class Stack<T>
 	
 	public void push(T data)
 	{
-		StackNode<T> node = new StackNode<T>(data);
+		StackNode<T> node = new StackNode<T>(data, tail);
 		
 		if ( head == null ) 
 		{
-			head = node;
+			head = node;			
 		}
 		else
 		{
 			tail.next = node;
 		}
+		
 		tail = node;
 	}
 	
 	public StackNode<T> pop()
 	{
-		StackNode<T> _tail = tail;
-		StackNode<T> temp = head;
-		StackNode<T> prev = null;
-		while ( temp != tail ) 
-		{
-			prev = temp;
-			temp = temp.next;
-		}
-		tail = prev;
-		return _tail;
-	}
-	
+		StackNode<T> returnNode = tail;		
+		tail.prev.next = null;
+		return returnNode;
+	}	
 }
