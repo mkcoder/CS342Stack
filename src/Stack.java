@@ -40,8 +40,23 @@ public class Stack<T>
 	
 	public StackNode<T> pop()
 	{
+<<<<<<< HEAD
 		StackNode<T> returnNode = tail;		
 		tail.prev.next = null;
 		return returnNode;
 	}	
+=======
+		StackNode<T> _tail = tail;
+		StackNode<T> temp = head;
+		StackNode<T> prev = null;
+		while ( temp != null ) 
+		{
+			prev = temp;
+			temp = temp.next;
+		}
+		tail = prev;
+		return _tail;
+	}
+	
+>>>>>>> origin/master
 }
