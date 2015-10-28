@@ -42,6 +42,7 @@ public class Stack<T>
 	{
 		StackNode<T> returnNode = tail;		
 		tail.prev.next = null;
+		tail = returnNode.prev;
 		return returnNode;
 	}
 }
