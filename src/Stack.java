@@ -1,48 +1,34 @@
 
-class StackNode <T>
+class StackNode
 {
-	public StackNode(T data) 
+	public StackNode(Object data) 
 	{
 		this.data = data;
 	}
 	
-	public StackNode(T data, StackNode<T> node) 
+	public StackNode(Object data, StackNode node) 
 	{
 		this(data);
-		this.prev = node;
+		this.next = node;
 	}
 
-	T data;
-	StackNode<T> next;
-	StackNode<T> prev;
+	Object data;
+	StackNode next;
 }
 
-public class Stack<T> 
+public class Stack
 {
-	StackNode<T> head;
-	StackNode<T> tail;
+	StackNode head;
 	
-	public void push(T data)
+	public void push(Object data)
 	{
-		StackNode<T> node = new StackNode<T>(data, tail);
-		
-		if ( head == null ) 
-		{
-			head = node;			
-		}
-		else
-		{
-			tail.next = node;
-		}
-		
-		tail = node;
+		head = new StackNode(data, head);
 	}
 	
-	public StackNode<T> pop()
+	public StackNode pop()
 	{
-		StackNode<T> returnNode = tail;		
-		tail.prev.next = null;
-		tail = returnNode.prev;
+		StackNode returnNode = head;		
+		head = head.next;
 		return returnNode;
 	}
 }
