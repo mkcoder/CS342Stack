@@ -10,7 +10,7 @@ public class ScaledPoint
     
     public ScaledPoint(int x, int y)
     {
-        this.x=0;
+        this.x=x;
         this.y=y;
     }
     
