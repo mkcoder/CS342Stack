@@ -1,4 +1,4 @@
-// Programmers: Chris Griffith, Oliver San Juan, Muhammad, Ken
+// Programmers: Chris Griffith, Oliver San Juan, Muhammad, Ken Devane
 // Assignment:  Project 3, Data Structure Visualization
 // Date:        November 4, 2015
 // Description: This class is the GUI interface for visualizing 
@@ -32,6 +32,8 @@ public class StackGUI extends JApplet implements ActionListener
     private int          stackSize;              // Size of stack entered by user
     private int          xLoc;                   // X coordinate
     private int          yLoc;                   // Y coordinate
+    private int          stackWidth;             // Stack width
+    private int          stackHeight;            // Stack height
 
     // Initializing all elements of the GUI
     @Override
@@ -52,6 +54,11 @@ public class StackGUI extends JApplet implements ActionListener
         appletHeight = getHeight();            // Height of applet in pixels
         appletWidth = getWidth();              // Width of applet in pixels
         message = "";                          // Default message
+
+        xLoc = 0;                              // Default stack size and location values
+        yLoc = 0;
+        stackHeight = 0;
+        stackWidth = 0;
 
         // Create gui components
         panel = new JPanel();
@@ -107,21 +114,35 @@ public class StackGUI extends JApplet implements ActionListener
         appletWidth = getWidth();                // Width of applet in pixels
 
         // TODO: ScaledPoints class
+
+        g.drawRect(xLoc, yLoc, stackWidth, stackHeight);
+        
     }
 
     // Process user actions
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        int stackSize;                            //User's desired stack size
 
         if(e.getSource() == createStack)         // User clicked create stack button
         {
-            // TODO: Pop up another window requesting the user to
-            //       enter a stack size > 0 and <= 100
+            try
+            {
+                stackSize = Integer.parseInt(JOptionPane.showInputDialog("Please enter a stack size"
+                        + " greater than 0 and less than or equal to 100"));
 
-            // stackSize = from pop-up textbox
+                //TODO:
+                //Set the Stack's location and height and width
 
-            // drawRect? 
+                createStack.setEnabled(false);    //Deactivate because user can create stack once
+
+            }
+            catch(NullPointerException npe)
+            {
+                stackSize = 0;
+            }
+
         }
     
         if(e.getSource() == pushButton)          // User clicked push button
