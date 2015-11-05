@@ -52,8 +52,10 @@ public class StackGUI extends JApplet implements ActionListener
         xLoc = 0;                              // Default stack size
         yLoc = 0;                              //   and location values
         isCreate = false;                      // Create button starts unselected
+        stackFrames = new Stack();
         pushButtonClicked = false;			  // push button is false
         currentFrameCount = 0;
+        
     }
 
     private void setupGUI()
@@ -118,30 +120,32 @@ public class StackGUI extends JApplet implements ActionListener
         appletHeight = getHeight();          // Height of applet in pixels
         appletWidth = getWidth();            // Width of applet in pixels
 
-        if(isCreate)                         // Draw stack since user clicked create stack button
+        if( isCreate )                         // Draw stack since user clicked create stack button
         {
             stack.redraw(g, appletWidth, appletHeight);
         }
-        else if ( isCreate && pushButtonClicked )
-        {
-        	currentFrame = new StackFrame(g, message, appletWidth, appletHeight, currentFrameCount, stackSize);        	
-        	pushButtonClicked = false;
-        }
         
+        if ( isCreate && pushButtonClicked )
+        {
+        	currentFrame = new StackFrame(g, message, appletWidth, appletHeight, currentFrameCount, stackSize);
+        	stackFrames.push(currentFrame);
+        	pushButtonClicked = false;
+        }        
     }
 
     // Process user actions
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        int stackSize;                            //User's desired stack size
-
         if(e.getSource() == createStack)         // User clicked create stack button
         {
             try
             {
-                stackSize = Integer.parseInt(JOptionPane.showInputDialog("Please enter a stack size"
-                         + " greater than 0 and less than or equal to 25"));
+            	String input = JOptionPane.showInputDialog("Please enter a stack size"
+                        + " greater than 0 and less than or equal to 25");
+            	System.out.println(input);
+                stackSize = new Integer(input);
+                System.out.printf("STACK SIZE: %d", stackSize);
                 while ( stackSize <= 0 || stackSize > 25 ) 
                 {
                 	JOptionPane.showMessageDialog(null, "Please enter something between 0 - 25");
@@ -158,7 +162,7 @@ public class StackGUI extends JApplet implements ActionListener
             }
             catch(NullPointerException npe)
             {
-                stackSize = 0;
+                stackSize = 2;
             }
         }
     
