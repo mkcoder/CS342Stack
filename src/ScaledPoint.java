@@ -1,37 +1,44 @@
-//
-// Class to facilitate re-sizing of an applet
-//
+// Programmers: Chris Griffith, Oliver San Juan, Muhammad, Ken Devane
+// Assignment:  Project 3, Data Structure Visualization
+// Date:        November 4, 2015
+// Description: Class to facilitate re-sizing of an applet
 
 public class ScaledPoint
 {
-    private int x;              // stores a scaled x coordinate
-    private int y;              // stores a scaled y coordinate
-    
+    private double x;              // stores a scaled x coordinate
+    private double y;              // stores a scaled y coordinate
+    private double width;          // stores a scaled rectangle width
+    private double height;         // stores a scaled rectangle height
+
     public ScaledPoint()
-    //POST: creates an object with coordinate (0,0)
+    //POST: creates an object with x, y, width, & height equal to zero
     {
-        this(0,0);
+        this(0.0,0.0, 0.0, 0.0);
     }
     
-    public ScaledPoint(int x, int y)
-    //PRE:  x > 0, y > 0
-    //POST: creates an object with coordinate (x,y)
+    public ScaledPoint(double x, double y, double width, double height)
+    //PRE:  x > 0.0, y > 0.0
+    //POST: creates an object with coordinate (x,y), width set
+    //      to width, and height set to height
     {
         this.x=x;
         this.y=y;
+        this.width = width;
+        this.height = height;
     }
     
-    public static int scaledX(int currentX, double scaleFactor)
-    //PRE:  currentX > 0, 0 < scaleFactor < 1
-    //POST: FCTVAL == the scaled x coordinate based on scaleFactor
+    public static int scaledX(int appletWidth)
+    //PRE:  appletWidth > 0
+    //POST: FCTVAL == the scaled x coordinate based on appletWidth
     {
-        return (int)(scaleFactor*currentX);
+        return (int)(appletWidth*x);
     }
     
-    public static int scaledY(int currentY, double scaleFactor)
-    //PRE:  currentY > 0, 0 < scaleFactor < 1
-    //POST: FCTVAL == the scaled y coordinate based on scaleFactor
+    public static int scaledY(int appletHeight)
+    //PRE:  appletHeight > 0
+    //POST: FCTVAL == the scaled y coordinate based on appletHeight
     {
-        return (int)(scaleFactor*currentY);
+        return (int)(appletWidth*y);
     }
+    
 }
