@@ -27,18 +27,31 @@ public class ScaledPoint
         this.height = height;
     }
     
-    public static int scaledX(int appletWidth)
+    public int scaledX(int appletWidth)
     //PRE:  appletWidth > 0
     //POST: FCTVAL == the scaled x coordinate based on appletWidth
     {
-        return (int)(appletWidth*x);
+        return (int)(appletWidth*this.x);
     }
     
-    public static int scaledY(int appletHeight)
+    public int scaledY(int appletHeight)
     //PRE:  appletHeight > 0
     //POST: FCTVAL == the scaled y coordinate based on appletHeight
     {
-        return (int)(appletWidth*y);
+        return (int)(appletHeight*this.y);
     }
-    
+
+    public int scaledWidth(int appletWidth)
+    //PRE:  appletWidth > 0
+    //POST: FCTVAL == the scaled width of rectangle based on appletWidth
+    {
+        return (int)(appletWidth*this.width);
+    }
+
+    public int scaledHeight(int appletHeight)
+    //PRE:  appletHeight > 0
+    //POST: FCTVAL == the scaled height of rectangle based on appletHeight
+    {
+        return (int)(appletHeight*this.height);
+    }
 }

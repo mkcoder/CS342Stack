@@ -32,14 +32,23 @@ public class StackGUI extends JApplet implements ActionListener
     private int          stackSize;              // Size of stack entered by user
     private int          xLoc;                   // X coordinate
     private int          yLoc;                   // Y coordinate
-    private int          stackWidth;             // Stack width
-    private int          stackHeight;            // Stack height
+    //private int          stackWidth;             // Stack width
+    //private int          stackHeight;            // Stack height
+    private boolean      isCreate;               // Create button selected
+    
+    private Box          stack;                  // Graphics outline for the stack
 
     // Initializing all elements of the GUI
     @Override
     public void init()
     {
-        this.setupGUI();                     // setup the gui
+        this.setupGUI();                       // setup the gui
+        
+        // Initialize data dictionary variables
+        message = "";                          // Default message
+        xLoc = 0;                              // Default stack size
+        yLoc = 0;                              //   and location values
+        isCreate = false;                      // Create button starts unselected
     }
 
     private void setupGUI()
@@ -51,15 +60,6 @@ public class StackGUI extends JApplet implements ActionListener
 
         colorSelected = new Color(0, 0, 0);    // Drawing color starts as black until changed
         
-        appletHeight = getHeight();            // Height of applet in pixels
-        appletWidth = getWidth();              // Width of applet in pixels
-        message = "";                          // Default message
-
-        xLoc = 0;                              // Default stack size and location values
-        yLoc = 0;
-        stackHeight = 0;
-        stackWidth = 0;
-
         // Create gui components
         panel = new JPanel();
         topRow = new JPanel();
@@ -110,13 +110,14 @@ public class StackGUI extends JApplet implements ActionListener
     {
         super.paint(g);
         
-        appletHeight = getHeight();              // Height of applet in pixels
-        appletWidth = getWidth();                // Width of applet in pixels
+        appletHeight = getHeight();          // Height of applet in pixels
+        appletWidth = getWidth();            // Width of applet in pixels
 
-        // TODO: ScaledPoints class
+        if(isCreate)                         // Draw stack since user clicked create stack button
+        {
+            stack.redraw(g, appletWidth, appletHeight);
+        }
 
-        g.drawRect(xLoc, yLoc, stackWidth, stackHeight);
-        
     }
 
     // Process user actions
@@ -134,6 +135,8 @@ public class StackGUI extends JApplet implements ActionListener
 
                 //TODO:
                 //Set the Stack's location and height and width
+                stack = new Box();
+                isCreate = true;
 
                 createStack.setEnabled(false);    //Deactivate because user can create stack once
 
