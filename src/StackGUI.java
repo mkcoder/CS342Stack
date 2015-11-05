@@ -37,7 +37,10 @@ public class StackGUI extends JApplet implements ActionListener
     private boolean      isCreate;               // Create button selected
     private Stack		 stackFrames;
     private Box          stack;                  // Graphics outline for the stack
-
+    private StackFrame   currentFrame;
+	private boolean pushButtonClicked;
+	private int currentFrameCount;				// frame count
+    
     // Initializing all elements of the GUI
     @Override
     public void init()
@@ -49,6 +52,8 @@ public class StackGUI extends JApplet implements ActionListener
         xLoc = 0;                              // Default stack size
         yLoc = 0;                              //   and location values
         isCreate = false;                      // Create button starts unselected
+        pushButtonClicked = false;			  // push button is false
+        currentFrameCount = 0;
     }
 
     private void setupGUI()
@@ -117,7 +122,12 @@ public class StackGUI extends JApplet implements ActionListener
         {
             stack.redraw(g, appletWidth, appletHeight);
         }
-
+        else if ( isCreate && pushButtonClicked )
+        {
+        	currentFrame = new StackFrame(g, message, appletWidth, appletHeight, currentFrameCount, stackSize);        	
+        	pushButtonClicked = false;
+        }
+        
     }
 
     // Process user actions
@@ -157,6 +167,9 @@ public class StackGUI extends JApplet implements ActionListener
             try
             {
                 message = pushText.getText();
+                currentFrame = new StackFrame();                        
+                pushButtonClicked = true;
+                currentFrameCount++;
             }
             catch(NullPointerException npe)
             {
