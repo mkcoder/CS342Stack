@@ -25,9 +25,8 @@ public class StackFrame
     //POST: creates a box object and draws this box a with starting 
     //      location at (0.25, 0.25), width set to 0.25, height 
     //      set to 0.75, and color set to BLACK
-    {
-    	double b = (0.75/totalStackFrameSize);
-        this.stack = new ScaledPoint(0.10, 0.20*currentStackFrameCount, 0.40, b);
+    {    	
+        this.stack = new ScaledPoint(0.10, 0.20+((0.75/totalStackFrameSize)*currentStackFrameCount), 0.40, 0.75/totalStackFrameSize);
         color = Color.ORANGE;
         this.userdata = userData;
         int x = stack.scaledX(appWidth);

@@ -126,10 +126,11 @@ public class StackGUI extends JApplet implements ActionListener
         }
         
         if ( isCreate && pushButtonClicked )
-        {
+        {        	
         	currentFrame = new StackFrame(g, message, appletWidth, appletHeight, currentFrameCount, stackSize);
         	stackFrames.push(currentFrame);
         	pushButtonClicked = false;
+        	currentFrameCount++;
         }        
     }
 
@@ -172,8 +173,7 @@ public class StackGUI extends JApplet implements ActionListener
             {
                 message = pushText.getText();
                 currentFrame = new StackFrame();                        
-                pushButtonClicked = true;
-                currentFrameCount++;
+                pushButtonClicked = true;                
             }
             catch(NullPointerException npe)
             {
