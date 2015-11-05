@@ -35,7 +35,7 @@ public class StackGUI extends JApplet implements ActionListener
     //private int          stackWidth;             // Stack width
     //private int          stackHeight;            // Stack height
     private boolean      isCreate;               // Create button selected
-    
+    private Stack		 stackFrames;
     private Box          stack;                  // Graphics outline for the stack
 
     // Initializing all elements of the GUI
@@ -131,13 +131,18 @@ public class StackGUI extends JApplet implements ActionListener
             try
             {
                 stackSize = Integer.parseInt(JOptionPane.showInputDialog("Please enter a stack size"
-                        + " greater than 0 and less than or equal to 100"));
-
+                         + " greater than 0 and less than or equal to 25"));
+                while ( stackSize <= 0 || stackSize > 25 ) 
+                {
+                	JOptionPane.showMessageDialog(null, "Please enter something between 0 - 25");
+                	stackSize = Integer.parseInt(JOptionPane.showInputDialog("Please enter a stack size"
+                            + " greater than 0 and less than or equal to 25"));                	
+                }
+                
                 //TODO:
                 //Set the Stack's location and height and width
                 stack = new Box();
                 isCreate = true;
-
                 createStack.setEnabled(false);    //Deactivate because user can create stack once
 
             }
@@ -145,7 +150,6 @@ public class StackGUI extends JApplet implements ActionListener
             {
                 stackSize = 0;
             }
-
         }
     
         if(e.getSource() == pushButton)          // User clicked push button
