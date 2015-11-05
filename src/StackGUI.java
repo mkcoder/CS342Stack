@@ -127,8 +127,7 @@ public class StackGUI extends JApplet implements ActionListener
         
         if ( isCreate && pushButtonClicked )
         {        	
-        	currentFrame = new StackFrame(g, message, appletWidth, appletHeight, currentFrameCount, stackSize);
-        	stackFrames.push(currentFrame);
+        	currentFrame.redraw(g, message, appletWidth, appletHeight, currentFrameCount, stackSize);
         	pushButtonClicked = false;
         	currentFrameCount++;
         }        
@@ -172,14 +171,15 @@ public class StackGUI extends JApplet implements ActionListener
             try
             {
                 message = pushText.getText();
-                currentFrame = new StackFrame();                        
-                pushButtonClicked = true;                
             }
             catch(NullPointerException npe)
             {
                 message = "";
             }
 
+            currentFrame = new StackFrame();                        
+        	stackFrames.push(currentFrame);
+            pushButtonClicked = true;                
             // TODO: put message into stack object
             
             // TODO: call push from stack back-end class and update paint

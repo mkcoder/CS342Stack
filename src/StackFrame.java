@@ -20,7 +20,8 @@ public class StackFrame
         color = Color.BLACK;
     }
    
-    public StackFrame(Graphics g, Object userData, int appWidth, int appHeight, int currentStackFrameCount, int totalStackFrameSize)
+    public StackFrame(Graphics g, Object userData, int appWidth, int appHeight, 
+                      int currentStackFrameCount, int totalStackFrameSize)
     //PRE:  g is initialized, appWidth > 0, and appHeight > 0
     //POST: creates a box object and draws this box a with starting 
     //      location at (0.25, 0.25), width set to 0.25, height 
@@ -37,12 +38,15 @@ public class StackFrame
         g.drawRect(x, y, width, height);
     }
 
-    public void redraw(Graphics g, int appWidth, int appHeight)
+    public void redraw(Graphics g, Object userData, int appWidth, int appHeight,
+                       int currentStackFrameCount, int totalStackFrameSize)
     //PRE:  g is initialized, appWidth > 0, and appHeight > 0
     //POST: updates object and redraws with new coordinates based
     //      on new appWidth and appHeight
     {
-        color = Color.BLACK;
+        this.stack = new ScaledPoint(0.10, 0.20+((0.75/totalStackFrameSize)*currentStackFrameCount), 0.40, 0.75/totalStackFrameSize);
+        color = Color.ORANGE;
+        this.userdata = userData;
         
         int x = stack.scaledX(appWidth);
         int y = stack.scaledY(appHeight);
