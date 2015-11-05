@@ -34,6 +34,7 @@ public class StackGUI extends JApplet implements ActionListener
     private int          yLoc;                   // Y coordinate
     private int          stackWidth;             // Stack width
     private int          stackHeight;            // Stack height
+    
 
     // Initializing all elements of the GUI
     @Override
@@ -123,14 +124,26 @@ public class StackGUI extends JApplet implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        int stackSize;                            //User's desired stack size
+        int    stackSize;              //User's desired stack size
 
         if(e.getSource() == createStack)         // User clicked create stack button
         {
             try
             {
-                stackSize = Integer.parseInt(JOptionPane.showInputDialog("Please enter a stack size"
+                while(true)
+                {
+                    stackSize = Integer.parseInt(JOptionPane.showInputDialog("Please enter a stack size"
                         + " greater than 0 and less than or equal to 100"));
+
+                    if(stackSize >0 && stackSize <=100)     //Check for valid stack size
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "That is not a valid value. Please try again");
+                    }
+                }
 
                 //TODO:
                 //Set the Stack's location and height and width
@@ -140,7 +153,7 @@ public class StackGUI extends JApplet implements ActionListener
             }
             catch(NullPointerException npe)
             {
-                stackSize = 0;
+                //Do nothing
             }
 
         }
