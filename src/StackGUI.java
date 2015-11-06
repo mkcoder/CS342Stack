@@ -125,6 +125,11 @@ public class StackGUI extends JApplet implements ActionListener
             stack.redraw(g, appletWidth, appletHeight);
         }
         
+        if ( currentFrameCount > stackSize )
+        {
+        	JOptionPane.showMessageDialog(null, "segfault stackoverflow.");
+        }
+        
         if ( isCreate && pushButtonClicked && 
              currentFrameCount < stackSize )
         {   
@@ -146,7 +151,7 @@ public class StackGUI extends JApplet implements ActionListener
              currentFrameCount > 0)
         {
         	
-        }
+        }       
         else
         {
         	System.out.println("---------");

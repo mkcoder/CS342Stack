@@ -8,10 +8,11 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class StackFrame
-{
-	protected Object 		userdata;			// 
-	protected ScaledPoint stack;              	// Contains scaled coordinates for drawing
-	protected Color       color;					// Default color of stack outline        
+{	
+	protected Object 		userdata;			//
+	protected static final Color[]	colors = new Color[5];
+	protected ScaledPoint 	stack;              	// Contains scaled coordinates for drawing
+	protected Color       	color;					// Default color of stack outline        
     
     public StackFrame()
     //POST: creates a box object with starting location at (0.25, 0.25),
@@ -19,6 +20,11 @@ public class StackFrame
     {
         this.stack = new ScaledPoint(0.10, 0.20, 0.40, 0.75);      
         color = Color.BLACK;
+        colors[0] = new Color(0, 102, 255);
+        colors[1] = new Color(128, 204, 255);
+        colors[2] = new Color(9, 156, 255);
+        colors[3] = new Color(255, 68, 68);
+        colors[4] = new Color(51, 255, 51);
     }
    
     public StackFrame(Graphics g, Object userData, int appWidth, int appHeight, 
@@ -28,14 +34,17 @@ public class StackFrame
     //      location at (0.25, 0.25), width set to 0.25, height 
     //      set to 0.75, and color set to BLACK
     {    	
-        this.stack = new ScaledPoint(0.10, 0.20+((0.75/totalStackFrameSize)*currentStackFrameCount), 0.40, 0.75/totalStackFrameSize);
-        color = Color.ORANGE;
+        double stackBottom = (0.95-(0.75/totalStackFrameSize));
+		double stackFrameSize = ((0.75/totalStackFrameSize)*currentStackFrameCount);
+		double yLoc = stackBottom -	stackFrameSize ;
+		this.stack = new ScaledPoint(0.10, yLoc , 0.40, 0.75/totalStackFrameSize);
+        
+        color = colors[(int)(Math.random()*colors.length)];
         this.userdata = userData;
         int x = stack.scaledX(appWidth);
         int y = stack.scaledY(appHeight);
         int width = stack.scaledWidth(appWidth);
-        int height = stack.scaledHeight(appHeight);
-        g.setColor(color);        
+        int height = stack.scaledHeight(appHeight);               
         g.fillRect(x, y, width, height);
     }
 
@@ -43,17 +52,16 @@ public class StackFrame
     //PRE:  g is initialized, appWidth > 0, and appHeight > 0
     //POST: updates object and redraws with new coordinates based
     //      on new appWidth and appHeight
-    {        
-        color = Color.ORANGE;
-        
+    {                
         int x = stack.scaledX(appWidth);
         int y = stack.scaledY(appHeight);
         int width = stack.scaledWidth(appWidth);
         int height = stack.scaledHeight(appHeight);
 
-        g.setColor(color);
+        g.setColor(color);   
         g.fillRect(x, y, width, height);
-        g.setColor(new Color(0,0,0));        
+        g.setColor(new Color(0,0,0));      
+        g.setFont(new Font("TimesRoman", Font.BOLD, 14));
         g.drawString((String)userdata, x+width/2, y+height/2);
     }
 }

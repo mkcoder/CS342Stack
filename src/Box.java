@@ -8,8 +8,8 @@ import java.awt.Color;
 
 public class Box
 {
-    private ScaledPoint stack;              // Contains scaled coordinates for drawing
-    private Color       color;              // Default color of stack outline
+    protected ScaledPoint stack;              // Contains scaled coordinates for drawing
+    protected Color       color;              // Default color of stack outline
 
     public Box()
     //POST: creates a box object with starting location at (0.25, 0.25),
