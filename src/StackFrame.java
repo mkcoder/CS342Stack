@@ -38,13 +38,12 @@ public class StackFrame
         g.drawRect(x, y, width, height);
     }
 
-    public void redraw(Graphics g, Object userData, int appWidth, int appHeight)
+    public void redraw(Graphics g, int appWidth, int appHeight)
     //PRE:  g is initialized, appWidth > 0, and appHeight > 0
     //POST: updates object and redraws with new coordinates based
     //      on new appWidth and appHeight
     {        
         color = Color.ORANGE;
-        this.userdata = userData;
         
         int x = stack.scaledX(appWidth);
         int y = stack.scaledY(appHeight);

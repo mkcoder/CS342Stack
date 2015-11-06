@@ -135,18 +135,29 @@ public class StackGUI extends JApplet implements ActionListener
         	for ( StackNode f : stackFrames ) 
         	{
         		System.out.println(((StackFrame)f.data).userdata);
-        		((StackFrame)f.data).redraw(g, message, appletWidth, appletHeight);
+        		((StackFrame)f.data).redraw(g, appletWidth, appletHeight);
         	}
         	System.out.println("---------");                
         	currentFrameCount++;
         	pushButtonClicked = false;
         }
 
-        if ( isCreate && popButtonClicked &&
+        else if ( isCreate && popButtonClicked &&
              currentFrameCount > 0)
         {
         	
         }
+        else
+        {
+        	System.out.println("---------");
+        	for ( StackNode f : stackFrames ) 
+        	{
+        		System.out.println(((StackFrame)f.data).userdata);
+        		((StackFrame)f.data).redraw(g, appletWidth, appletHeight);
+        	}
+        	System.out.println("---------");
+        }
+        
     }
 
     // Process user actions
