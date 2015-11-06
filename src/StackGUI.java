@@ -128,24 +128,23 @@ public class StackGUI extends JApplet implements ActionListener
         if ( isCreate && pushButtonClicked && 
              currentFrameCount < stackSize )
         {   
-            /*
-            int curr = stackFrames.getHead();
-        	while(curr != null)
-            {
-                curr.redraw(g, message, appletWidth, appletHeight, 
-                                            currentFrameCount, stackSize);
-                // curr = 
-            }
-        	pushButtonClicked = false;
-            */
+            currentFrame = new StackFrame(g, message, appletWidth, 
+            		appletHeight, currentFrameCount, stackSize);
+            stackFrames.push(currentFrame);
+            System.out.println("---------");
+        	for ( StackNode f : stackFrames ) 
+        	{
+        		System.out.println(((StackFrame)f.data).userdata);
+        		((StackFrame)f.data).redraw(g, message, appletWidth, appletHeight);
+        	}
+        	System.out.println("---------");                
+        	currentFrameCount++;
         }
 
         if ( isCreate && popButtonClicked &&
              currentFrameCount > 0)
         {
-
-
-
+        	
         }
     }
 
@@ -191,10 +190,8 @@ public class StackGUI extends JApplet implements ActionListener
                 message = "";
             }
 
-            currentFrame = new StackFrame();                        
-        	stackFrames.push(currentFrame);
-            pushButtonClicked = true;                
-        	currentFrameCount++;
+            currentFrame = new StackFrame();
+            pushButtonClicked = true;
             // TODO: put message into stack object
             
             // TODO: call push from stack back-end class and update paint

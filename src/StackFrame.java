@@ -8,9 +8,9 @@ import java.awt.Color;
 
 public class StackFrame
 {
-	private Object 		userdata;					// 
-    private ScaledPoint stack;              		// Contains scaled coordinates for drawing
-    private Color       color;              		// Default color of stack outline        
+	protected Object 		userdata;			// 
+	protected ScaledPoint stack;              	// Contains scaled coordinates for drawing
+	protected Color       color;					// Default color of stack outline        
     
     public StackFrame()
     //POST: creates a box object with starting location at (0.25, 0.25),
@@ -38,13 +38,11 @@ public class StackFrame
         g.drawRect(x, y, width, height);
     }
 
-    public void redraw(Graphics g, Object userData, int appWidth, int appHeight,
-                       int currentStackFrameCount, int totalStackFrameSize)
+    public void redraw(Graphics g, Object userData, int appWidth, int appHeight)
     //PRE:  g is initialized, appWidth > 0, and appHeight > 0
     //POST: updates object and redraws with new coordinates based
     //      on new appWidth and appHeight
-    {
-        this.stack = new ScaledPoint(0.10, 0.20+((0.75/totalStackFrameSize)*currentStackFrameCount), 0.40, 0.75/totalStackFrameSize);
+    {        
         color = Color.ORANGE;
         this.userdata = userData;
         
