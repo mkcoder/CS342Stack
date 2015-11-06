@@ -150,6 +150,14 @@ public class StackGUI extends JApplet implements ActionListener
         else if ( isCreate && popButtonClicked &&
              currentFrameCount > 0)
         {
+        	stackFrames.pop();
+        	currentFrameCount--;
+        	for ( StackNode f : stackFrames ) 
+        	{
+        		System.out.println(((StackFrame)f.data).userdata);
+        		((StackFrame)f.data).redraw(g, appletWidth, appletHeight);
+        	}
+        	popButtonClicked = false;
         	
         }       
         else
@@ -217,6 +225,7 @@ public class StackGUI extends JApplet implements ActionListener
         if(e.getSource() == popButton)
         {
             // TODO: // call pop from stack and update paint
+        	popButtonClicked = true;
 
         }
 
