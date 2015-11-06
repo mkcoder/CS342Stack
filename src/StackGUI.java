@@ -24,6 +24,7 @@ public class StackGUI extends JApplet implements ActionListener
     private JTextField   pushText;               // Field to input push choice from user
     private JButton      pushButton;             // Button to push value on to stack
     private JButton      popButton;              // Button to pop value off of stack
+    private JButton	     topButton;				 //	Button to display the top of the stack
     private JButton      createStack;            // Button to draw the stack
     private JButton      reset;                  // Button to reset stack
     private Color        colorSelected;          // Color of the drawings
@@ -75,6 +76,7 @@ public class StackGUI extends JApplet implements ActionListener
         pushText = new JTextField(10);
         pushButton = new JButton("Push");
         popButton = new JButton("Pop");
+        topButton = new JButton("Top");
         createStack = new JButton("Create Stack");
         reset = new JButton("Reset");
 
@@ -97,6 +99,7 @@ public class StackGUI extends JApplet implements ActionListener
         popButton.addActionListener(this);
         createStack.addActionListener(this);
         reset.addActionListener(this);
+        topButton.addActionListener(this);
 
         // Add components to the panel
         topRow.add(createStack);
@@ -104,6 +107,7 @@ public class StackGUI extends JApplet implements ActionListener
         topRow.add(popButton);
         topRow.add(pushLabel);
         topRow.add(pushText);
+        topRow.add(topButton);
         //topRow.add(reset);
  
         // Add panel to GUI
@@ -152,6 +156,7 @@ public class StackGUI extends JApplet implements ActionListener
         {
         	stackFrames.pop();
         	currentFrameCount--;
+        	
         	for ( StackNode f : stackFrames ) 
         	{
         		System.out.println(((StackFrame)f.data).userdata);
