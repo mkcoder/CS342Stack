@@ -5,6 +5,7 @@
 
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Font;
 
 public class StackFrame
 {
@@ -34,8 +35,8 @@ public class StackFrame
         int y = stack.scaledY(appHeight);
         int width = stack.scaledWidth(appWidth);
         int height = stack.scaledHeight(appHeight);
-        g.setColor(color);
-        g.drawRect(x, y, width, height);
+        g.setColor(color);        
+        g.fillRect(x, y, width, height);
     }
 
     public void redraw(Graphics g, int appWidth, int appHeight)
@@ -51,7 +52,8 @@ public class StackFrame
         int height = stack.scaledHeight(appHeight);
 
         g.setColor(color);
-        g.drawRect(x, y, width, height);
-        
+        g.fillRect(x, y, width, height);
+        g.setColor(new Color(0,0,0));        
+        g.drawString((String)userdata, x+width/2, y+height/2);
     }
 }
