@@ -1,4 +1,6 @@
-public class Stack
+import java.util.Iterator;
+
+public class Stack implements Iterable<StackNode>
 {
 	StackNode head;						// pointer to the top of the stack
 	
@@ -22,5 +24,26 @@ public class Stack
 		StackNode returnNode = head;		
 		head = head.next;
 		return returnNode.data;
+	}
+
+	@Override
+	public Iterator<StackNode> iterator() {
+		// TODO Auto-generated method stub		
+		return new Iterator<StackNode>() {
+			StackNode temp = head;
+			@Override
+			public boolean hasNext() {
+				// TODO Auto-generated method stub
+				return temp != null;
+			}
+
+			@Override
+			public StackNode next() {
+				// TODO Auto-generated method stub
+				StackNode r = temp;
+				temp = temp.next;
+				return r;
+			}
+		};
 	}
 }

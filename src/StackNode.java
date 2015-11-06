@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class StackNode
 {
 	// Data Dictionary
@@ -33,5 +35,5 @@ public class StackNode
 
 	public void setLocation(ScaledPoint location) {
 		this.location = location;
-	}
+	}	
 }
