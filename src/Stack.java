@@ -1,5 +1,7 @@
 import java.util.Iterator;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 public class Stack implements Iterable<StackNode>
 {
 	StackNode head;						// pointer to the top of the stack
@@ -48,7 +50,7 @@ public class Stack implements Iterable<StackNode>
 			@Override
 			public void remove() {
 				// TODO Auto-generated method stub
-				Iterator.super.remove();
+				throw new UnsupportedOperationException();
 			}		
 		};
 	}
