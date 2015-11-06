@@ -139,6 +139,7 @@ public class StackGUI extends JApplet implements ActionListener
         	}
         	System.out.println("---------");                
         	currentFrameCount++;
+        	pushButtonClicked = false;
         }
 
         if ( isCreate && popButtonClicked &&

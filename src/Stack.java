@@ -44,6 +44,12 @@ public class Stack implements Iterable<StackNode>
 				temp = temp.next;
 				return r;
 			}
+			
+			@Override
+			public void remove() {
+				// TODO Auto-generated method stub
+				Iterator.super.remove();
+			}		
 		};
 	}
 }
