@@ -64,4 +64,44 @@ public class StackFrame
         g.setFont(new Font("TimesRoman", Font.BOLD, 14));
         g.drawString((String)userdata, x+width/2, y+height/2);
     }
+    
+    public void flash(Graphics g, int appWidth, int appHeight)
+    {
+        int x = stack.scaledX(appWidth);
+        int y = stack.scaledY(appHeight);
+        int width = stack.scaledWidth(appWidth);
+        int height = stack.scaledHeight(appHeight);
+        
+        g.setColor(Color.black);
+        g.fillRect(x,y,width,height);
+        g.setColor(Color.white);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 14));
+        g.drawString((String)userdata, x+width/2, y+height/2);
+        
+        
+        try {
+            Thread.sleep(500);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+        
+        g.setColor(Color.white);
+        g.fillRect(x,y,width,height);
+        g.setColor(Color.black);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 14));
+        g.drawString((String)userdata, x+width/2, y+height/2);
+        
+        try {
+            Thread.sleep(500);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+        
+        
+        g.setColor(color);
+        g.fillRect(x, y, width, height);
+        g.setColor(new Color(0,0,0));
+        g.setFont(new Font("TimesRoman", Font.BOLD, 14));
+        g.drawString((String)userdata, x+width/2, y+height/2);
+    }
 }

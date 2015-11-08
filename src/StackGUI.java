@@ -39,6 +39,7 @@ public class StackGUI extends JApplet implements ActionListener
 	private boolean      pushButtonClicked;      // Push button selected
 	private boolean      popButtonClicked;       // Pop button selected
     private boolean      topButtonClicked;       // Top button selected
+
     
     // Initializing all elements of the GUI
     @Override
@@ -120,7 +121,7 @@ public class StackGUI extends JApplet implements ActionListener
     public void paint(Graphics g)
     {
         super.paint(g);
-        
+
         appletHeight = getHeight();          // Height of applet in pixels
         appletWidth = getWidth();            // Width of applet in pixels
 
@@ -164,7 +165,24 @@ public class StackGUI extends JApplet implements ActionListener
         	}
         	popButtonClicked = false;
         	
-        }       
+        }
+        else if(topButtonClicked)
+        {
+            boolean temp=true;
+            StackFrame topFrame = new StackFrame();
+            for ( StackNode f : stackFrames )
+            {
+                if(temp)
+                {
+                    topFrame=((StackFrame)f.data);
+                    temp=false;
+                }
+                System.out.println(((StackFrame)f.data).userdata);
+                ((StackFrame)f.data).redraw(g, appletWidth, appletHeight);
+            }
+            topFrame.flash(g,appletWidth,appletHeight);
+            topButtonClicked=false;
+        }
         else
         {
         	System.out.println("---------");
@@ -232,6 +250,11 @@ public class StackGUI extends JApplet implements ActionListener
             // TODO: // call pop from stack and update paint
         	popButtonClicked = true;
 
+        }
+        
+        if(e.getSource() == topButton)
+        {
+            topButtonClicked=true;
         }
 
         repaint();
