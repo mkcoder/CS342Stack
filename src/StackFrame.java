@@ -65,38 +65,49 @@ public class StackFrame
         g.drawString((String)userdata, x+width/2, y+height/2);
     }
     
+    
+    public void pause()
+    //PRE:  NONE
+    //POST: puts the thread to sleep for 1/8 of a second
+    {
+        try
+        {
+            Thread.sleep(250);
+        }catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+    }
+    
+    
     public void flash(Graphics g, int appWidth, int appHeight)
+    //PRE:  g is initialized, appWidth > 0, and appHeight > 0
+    //POST: updates object and redraws with new coordinates based
+    //      on new appWidth and appHeight
+
     {
         int x = stack.scaledX(appWidth);
         int y = stack.scaledY(appHeight);
         int width = stack.scaledWidth(appWidth);
         int height = stack.scaledHeight(appHeight);
         
-        g.setColor(Color.black);
-        g.fillRect(x,y,width,height);
-        g.setColor(Color.white);
-        g.setFont(new Font("TimesRoman", Font.BOLD, 14));
-        g.drawString((String)userdata, x+width/2, y+height/2);
-        
-        
-        try {
-            Thread.sleep(500);
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
+        for(int i=0; i<2; i++){
+            g.setColor(Color.black);
+            g.fillRect(x,y,width,height);
+            g.setColor(Color.white);
+            g.setFont(new Font("TimesRoman", Font.BOLD, 14));
+            g.drawString((String)userdata, x+width/2, y+height/2);
+            
+            pause();
+                    
+            g.setColor(Color.white);
+            g.fillRect(x,y,width,height);
+            g.setColor(Color.black);
+            g.setFont(new Font("TimesRoman", Font.BOLD, 14));
+            g.drawString((String)userdata, x+width/2, y+height/2);
+            
+            pause();
         }
-        
-        g.setColor(Color.white);
-        g.fillRect(x,y,width,height);
-        g.setColor(Color.black);
-        g.setFont(new Font("TimesRoman", Font.BOLD, 14));
-        g.drawString((String)userdata, x+width/2, y+height/2);
-        
-        try {
-            Thread.sleep(500);
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-        
         
         g.setColor(color);
         g.fillRect(x, y, width, height);
