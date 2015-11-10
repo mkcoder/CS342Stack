@@ -124,6 +124,19 @@ public class StackGUI extends JApplet implements ActionListener
 
         appletHeight = getHeight();          // Height of applet in pixels
         appletWidth = getWidth();            // Width of applet in pixels
+        
+        /*
+        if(currentFrameCount==0)
+        {
+            popButton.setEnabled(false);
+            topButton.setEnabled(false);
+        }
+        else
+        {
+            popButton.setEnabled(false);
+            topButton.setEnabled(false);
+        }
+         */
 
         if( isCreate )                         // Draw stack since user clicked create stack button
         {
@@ -137,7 +150,8 @@ public class StackGUI extends JApplet implements ActionListener
         
         if ( isCreate && pushButtonClicked && 
              currentFrameCount < stackSize )
-        {   
+        {
+            currentFrameCount++;
             currentFrame = new StackFrame(g, message, appletWidth, 
             		appletHeight, currentFrameCount, stackSize);
             stackFrames.push(currentFrame);
@@ -147,8 +161,10 @@ public class StackGUI extends JApplet implements ActionListener
         		System.out.println(((StackFrame)f.data).userdata);
         		((StackFrame)f.data).redraw(g, appletWidth, appletHeight);
         	}
-        	System.out.println("---------");                
-        	currentFrameCount++;
+        	System.out.println("---------");
+            System.out.println("Frame count is "+currentFrameCount);
+
+        	//currentFrameCount++;
         	pushButtonClicked = false;
         }
 
@@ -157,6 +173,7 @@ public class StackGUI extends JApplet implements ActionListener
         {
         	stackFrames.pop();
         	currentFrameCount--;
+            System.out.println("Frame count is "+currentFrameCount);
         	
         	for ( StackNode f : stackFrames ) 
         	{
@@ -180,7 +197,11 @@ public class StackGUI extends JApplet implements ActionListener
                 System.out.println(((StackFrame)f.data).userdata);
                 ((StackFrame)f.data).redraw(g, appletWidth, appletHeight);
             }
-            topFrame.flash(g,appletWidth,appletHeight);
+            
+            if(currentFrameCount>0)
+            {
+                topFrame.flash(g,appletWidth,appletHeight);
+            }
             topButtonClicked=false;
         }
         else
@@ -243,12 +264,14 @@ public class StackGUI extends JApplet implements ActionListener
             // TODO: put message into stack object
             
             // TODO: call push from stack back-end class and update paint
+            
         }
 
         if(e.getSource() == popButton)
         {
             // TODO: // call pop from stack and update paint
         	popButtonClicked = true;
+            
 
         }
         
@@ -256,6 +279,7 @@ public class StackGUI extends JApplet implements ActionListener
         {
             topButtonClicked=true;
         }
+        
 
         repaint();
     }

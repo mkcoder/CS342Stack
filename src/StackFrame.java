@@ -35,7 +35,7 @@ public class StackFrame
     //      set to 0.75, and color set to BLACK
     {    	
         double stackBottom = (0.95-(0.75/totalStackFrameSize));
-		double stackFrameSize = ((0.75/totalStackFrameSize)*currentStackFrameCount);
+		double stackFrameSize = ((0.75/totalStackFrameSize)*(currentStackFrameCount-1));
 		double yLoc = stackBottom -	stackFrameSize ;
 		this.stack = new ScaledPoint(0.10, yLoc , 0.40, 0.75/totalStackFrameSize);
         
