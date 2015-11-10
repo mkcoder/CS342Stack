@@ -39,17 +39,16 @@ public class Box
     	//
     	//  [     W      ]  <- <= (1,Y+W+PADDING_TO_THE_RIGHT_OF_THE_STACK)    	
     	//                   
-        this.stack = new ScaledPoint(0.10, 0.20, 0.40, 0.75);
-
+        this.stack = new ScaledPoint(0.10, 0.20, 0.40, 0.75);        
         color = Color.BLACK;
 
         int x = stack.scaledX(appWidth);
         int y = stack.scaledY(appHeight);
         int width = stack.scaledWidth(appWidth);
         int height = stack.scaledHeight(appHeight);
-
         g.setColor(color);
         g.drawRect(x, y, width, height);
+        
         
     }
 
@@ -66,6 +65,8 @@ public class Box
         int height = stack.scaledHeight(appHeight);
 
         g.setColor(color);
+        System.out.println("I WAS CALLED");
+        g.drawLine(x+width+10, y+height, x+width+150, y+height);        
         g.drawRect(x, y, width, height); 
     }
 }

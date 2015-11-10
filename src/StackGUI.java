@@ -255,7 +255,7 @@ public class StackGUI extends JApplet implements ActionListener
                 }
                 
                 // TODO: draw the bottom of the stack and the end of the stack 
-                // look inside to find out where to draw it. 
+                // look inside to find out where to draw it 
                 stack = new Box();
                 isCreate = true;
                 createStack.setEnabled(false);    //Deactivate because user can create stack once
