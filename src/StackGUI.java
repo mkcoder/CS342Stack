@@ -137,7 +137,7 @@ public class StackGUI extends JApplet implements ActionListener
             popButton.setEnabled(true);
             topButton.setEnabled(true);
             
-            stack.redraw(g, appletWidth, appletHeight);
+            stack.redraw(g, appletWidth, appletHeight);                        
         }
         
         if ( (currentFrameCount+1 > stackSize) && pushButtonClicked )
@@ -254,6 +254,8 @@ public class StackGUI extends JApplet implements ActionListener
                             + " greater than 0 and less than or equal to 25"));                	
                 }
                 
+                // TODO: draw the bottom of the stack and the end of the stack 
+                // look inside to find out where to draw it. 
                 stack = new Box();
                 isCreate = true;
                 createStack.setEnabled(false);    //Deactivate because user can create stack once

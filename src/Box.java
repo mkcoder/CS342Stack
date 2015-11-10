@@ -26,6 +26,19 @@ public class Box
     //      location at (0.25, 0.25), width set to 0.25, height 
     //      set to 0.75, and color set to BLACK
     {
+    	// TODO: adding bottom arrow with label
+    	// you have the bottom of the stack which would be
+    	// X=0.10, y=0.20, W=0.40, H=0.75
+    	// 
+    	//	(X,Y)
+    	//  [     W      ]  <- <= (1,1+W+PADDING_TO_THE_RIGHT_OF_THE_STACK) 
+    	//
+    	//
+    	//		  H       
+    	//
+    	//
+    	//  [     W      ]  <- <= (1,Y+W+PADDING_TO_THE_RIGHT_OF_THE_STACK)    	
+    	//                   
         this.stack = new ScaledPoint(0.10, 0.20, 0.40, 0.75);
 
         color = Color.BLACK;
@@ -36,7 +49,8 @@ public class Box
         int height = stack.scaledHeight(appHeight);
 
         g.setColor(color);
-        g.drawRect(x, y, width, height); 
+        g.drawRect(x, y, width, height);
+        
     }
 
     public void redraw(Graphics g, int appWidth, int appHeight)
