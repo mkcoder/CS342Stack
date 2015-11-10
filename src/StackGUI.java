@@ -94,6 +94,11 @@ public class StackGUI extends JApplet implements ActionListener
         layout.setHgap(10);
         layout.setVgap(10);
 
+        // disable the buttons
+        pushButton.setEnabled(false);
+        popButton.setEnabled(false);
+        topButton.setEnabled(false);
+        
         // Add action listener to text field and buttons
         pushText.addActionListener(this);
         pushButton.addActionListener(this);
@@ -125,27 +130,39 @@ public class StackGUI extends JApplet implements ActionListener
         appletHeight = getHeight();          // Height of applet in pixels
         appletWidth = getWidth();            // Width of applet in pixels
         
-        /*
-        if(currentFrameCount==0)
-        {
-            popButton.setEnabled(false);
-            topButton.setEnabled(false);
-        }
-        else
-        {
-            popButton.setEnabled(false);
-            topButton.setEnabled(false);
-        }
-         */
-
         if( isCreate )                         // Draw stack since user clicked create stack button
         {
+            // enable the buttons
+            pushButton.setEnabled(true);
+            popButton.setEnabled(true);
+            topButton.setEnabled(true);
+            
             stack.redraw(g, appletWidth, appletHeight);
         }
         
-        if ( currentFrameCount > stackSize )
+        if ( (currentFrameCount+1 > stackSize) && pushButtonClicked )
         {
         	JOptionPane.showMessageDialog(null, "segfault stackoverflow.");
+        	for ( StackNode f : stackFrames ) 
+        	{
+        		System.out.println(((StackFrame)f.data).userdata);
+        		((StackFrame)f.data).redraw(g, appletWidth, appletHeight);
+        	}
+        	pushButtonClicked = false;
+        	return;
+        }
+        
+        if ( (currentFrameCount <= 0) && (popButtonClicked || topButtonClicked) )
+        {
+        	JOptionPane.showMessageDialog(null, "there is nothing to pop/top.");
+        	for ( StackNode f : stackFrames ) 
+        	{
+        		System.out.println(((StackFrame)f.data).userdata);
+        		((StackFrame)f.data).redraw(g, appletWidth, appletHeight);
+        	}
+        	popButtonClicked = false;
+        	topButtonClicked = false;
+        	return;
         }
         
         if ( isCreate && pushButtonClicked && 
@@ -244,7 +261,7 @@ public class StackGUI extends JApplet implements ActionListener
             }
             catch(NullPointerException npe)
             {
-                stackSize = 2;
+                stackSize = 0;
             }
         }
     
