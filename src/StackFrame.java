@@ -28,7 +28,7 @@ public class StackFrame
     }
    
     public StackFrame(Graphics g, Object userData, int appWidth, int appHeight, 
-                      int currentStackFrameCount, int totalStackFrameSize)
+                      int currentStackFrameCount, int totalStackFrameSize, Color topColor)
     //PRE:  g is initialized, appWidth > 0, and appHeight > 0
     //POST: creates a box object and draws this box a with starting 
     //      location at (0.25, 0.25), width set to 0.25, height 
@@ -40,6 +40,13 @@ public class StackFrame
 		this.stack = new ScaledPoint(0.10, yLoc , 0.40, 0.75/totalStackFrameSize);
         
         color = colors[(int)(Math.random()*colors.length)];
+        
+        //Ensures that every new stack frame's color is different from the top's
+        while(color.equals(topColor))
+        {
+        	color = colors[(int)(Math.random()*colors.length)];
+        }
+        
         this.userdata = userData;
         int x = stack.scaledX(appWidth);
         int y = stack.scaledY(appHeight);
@@ -114,5 +121,12 @@ public class StackFrame
         g.setColor(new Color(0,0,0));
         g.setFont(new Font("TimesRoman", Font.BOLD, 14));
         g.drawString((String)userdata, x+width/2, y+height/2);
+    }
+    
+    public Color getColor()
+    //POST: FCTVAL == protected class member color
+    {
+    	return this.color;
+   	
     }
 }

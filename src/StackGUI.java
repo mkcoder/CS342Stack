@@ -125,6 +125,8 @@ public class StackGUI extends JApplet implements ActionListener
     @Override
     public void paint(Graphics g)
     {
+    	//Data Dictionary
+    	Color topColor;						//Top frame's color
         super.paint(g);
 
         appletHeight = getHeight();          // Height of applet in pixels
@@ -168,9 +170,22 @@ public class StackGUI extends JApplet implements ActionListener
         if ( isCreate && pushButtonClicked && 
              currentFrameCount < stackSize )
         {
+        	
+            boolean temp=true;
+            StackFrame topFrame = new StackFrame();
+            for ( StackNode f : stackFrames )
+            {
+                if(temp)
+                {
+                    topFrame=((StackFrame)f.data);
+                    temp=false;
+                }
+            }
+            
+            topColor = topFrame.getColor();
             currentFrameCount++;
             currentFrame = new StackFrame(g, message, appletWidth, 
-            		appletHeight, currentFrameCount, stackSize);
+            		appletHeight, currentFrameCount, stackSize, topColor);
             stackFrames.push(currentFrame);
             System.out.println("---------");
         	for ( StackNode f : stackFrames ) 
