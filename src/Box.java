@@ -66,7 +66,11 @@ public class Box
 
         g.setColor(color);
         System.out.println("I WAS CALLED");
-        g.drawLine(x+width+10, y+height, x+width+150, y+height);        
+        
+        //Draw line showing the bottom of the stack
+        g.drawLine(x+width+10, y+height, x+width+150, y+height);
+        g.drawString("Stack Bottom",x+width+40, y+height);
+        
         g.drawRect(x, y, width, height); 
     }
 }
