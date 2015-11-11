@@ -155,21 +155,7 @@ public class StackGUI extends JApplet implements ActionListener
         	JOptionPane.showMessageDialog(null, "segfault stackoverflow.");
 
             // Redraw each frame pushed onto stack
-        	for ( StackNode f : stackFrames ) 
-        	{
-           		if(temp == true)						//If top of stack, draw the label
-        		{
-        			((StackFrame)f.data).redraw(g, appletWidth, appletHeight, true);
-        			temp = false;
-        		}
-        		
-        		else								//Otherwise, don't draw the "stack top" label
-        		{
-            		//System.out.println(((StackFrame)f.data).userdata);
-            		((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
-        		}
-        	}
-        	
+        	redrawStack(g);
 
             // Reset push button
         	pushButtonClicked = false;
@@ -183,12 +169,14 @@ public class StackGUI extends JApplet implements ActionListener
             JOptionPane.showMessageDialog(null, "there is nothing to pop/top.");
 
             // Redraw each frame if pop or top button is selected
-        	for ( StackNode f : stackFrames ) 
-        	{
-        		//System.out.println(((StackFrame)f.data).userdata);
-        		((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
-        	}
+//        	for ( StackNode f : stackFrames ) 
+//        	{
+//        		//System.out.println(((StackFrame)f.data).userdata);
+//        		((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
+//        	}
 
+            redrawStack(g);
+            
             // Reset pop and top buttons
         	popButtonClicked = false;
         	topButtonClicked = false;
@@ -219,22 +207,9 @@ public class StackGUI extends JApplet implements ActionListener
             stackFrames.push(currentFrame);
             System.out.println("---------");
             
-            temp = true;
+            //Redraw the stack after adding a new frame
+            redrawStack(g);
             
-        	for ( StackNode f : stackFrames ) 
-        	{
-        		if(temp == true)						//If top of stack, draw the label
-        		{
-        			((StackFrame)f.data).redraw(g, appletWidth, appletHeight, true);
-        			temp = false;
-        		}
-        		
-        		else									//Otherwise, don't draw the "stack top" label
-        		{
-            		//System.out.println(((StackFrame)f.data).userdata);
-            		((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
-        		}
-        	}
         	System.out.println("---------");
             System.out.println("Frame count is "+currentFrameCount);
 
@@ -249,20 +224,9 @@ public class StackGUI extends JApplet implements ActionListener
         	currentFrameCount--;
             System.out.println("Frame count is "+currentFrameCount);
         	
-        	for ( StackNode f : stackFrames ) 
-        	{
-           		if(temp == true)						//If top of stack, draw the label
-        		{
-        			((StackFrame)f.data).redraw(g, appletWidth, appletHeight, true);
-        			temp = false;
-        		}
-        		
-        		else								//Otherwise, don't draw the "stack top" label
-        		{
-            		//System.out.println(((StackFrame)f.data).userdata);
-            		((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
-        		}
-        	}
+            //Redraw the stack
+            redrawStack(g);
+            
         	popButtonClicked = false;
         	
         }
@@ -270,6 +234,7 @@ public class StackGUI extends JApplet implements ActionListener
         {
             temp = true;
             topFrame = new StackFrame();
+            
             for ( StackNode f : stackFrames )
             {
                 if(temp)
@@ -286,6 +251,7 @@ public class StackGUI extends JApplet implements ActionListener
 
             }
             
+            
             if(currentFrameCount>0)
             {
                 topFrame.flash(g,appletWidth,appletHeight);
@@ -295,12 +261,9 @@ public class StackGUI extends JApplet implements ActionListener
         else
         {
         	System.out.println("---------");
-        	for ( StackNode f : stackFrames ) 
-        	{
-        		System.out.println(((StackFrame)f.data).userdata);
-        		((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
-        	}
-        	((StackFrame)stackFrames.top()).redraw(g, appletWidth, appletHeight, true);
+
+        	redrawStack(g);
+        	
         	System.out.println("---------");
         }
         
@@ -363,5 +326,27 @@ public class StackGUI extends JApplet implements ActionListener
         }
 
         repaint();
+    }
+    
+    public void redrawStack(Graphics g)
+    //PRE: g is initialized
+    //POST: the stack is redrawn on the GUI
+    {
+        boolean temp = true;
+        
+    	for( StackNode f : stackFrames ) 
+    	{
+    		if(temp == true)						//If top of stack, draw the label
+    		{
+    			((StackFrame)f.data).redraw(g, appletWidth, appletHeight, true);
+    			temp = false;
+    		}
+    		
+    		else									//Otherwise, don't draw the "stack top" label
+    		{
+        		//System.out.println(((StackFrame)f.data).userdata);
+        		((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
+    		}
+    	}
     }
 }
