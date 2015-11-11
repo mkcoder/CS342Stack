@@ -16,10 +16,10 @@ public class Box
     protected Color       color;                // Default color of stack outline
 
     public Box()
-    //POST: creates a box object with starting location at (0.10, 0.20),
+    //POST: creates a box object with starting location at (0.25, 0.20),
     //      width set to 0.40, height set to 0.75, and color set to BLACK
     {
-        this.stack = new ScaledPoint(0.10, 0.20, 0.40, 0.75);
+        this.stack = new ScaledPoint(0.25, 0.20, 0.40, 0.75);
         
         color = Color.BLACK;
     }
@@ -27,10 +27,10 @@ public class Box
     public Box(Graphics g, int appWidth, int appHeight)
     //PRE:  g is initialized, appWidth > 0, and appHeight > 0
     //POST: creates a box object and draws this box a with starting 
-    //      location at (0.10, 0.20), width set to 0.40, height 
+    //      location at (0.25, 0.20), width set to 0.40, height 
     //      set to 0.75, and color set to BLACK
     {
-        this.stack = new ScaledPoint(0.10, 0.20, 0.40, 0.75);        
+        this.stack = new ScaledPoint(0.25, 0.20, 0.40, 0.75);        
         color = Color.BLACK;
 
         int x = stack.scaledX(appWidth);
@@ -57,13 +57,13 @@ public class Box
         System.out.println("I WAS CALLED");
 
         //Draw label and arrow to show how the stack grows
-        g.drawString("Stack Grows", x+width+XOFFSET, (y+(height/2))+10);
-        g.drawLine(x+width+TWENTYFIVE, (y+(height/2))+TWENTYFIVE, 
-                   x+width+TWENTYFIVE, (y+(height/2)-TWENTYFIVE));
+        g.drawString("Stack Grows", x-3*XOFFSET, (y+(height/2))+10);
+        g.drawLine(x-TWENTYFIVE, (y+(height/2))+TWENTYFIVE, 
+                   x-TWENTYFIVE, (y+(height/2)-TWENTYFIVE));
 
         //Draw arrow head
-        g.drawLine(x+width+TWENTYFIVE, (y+(height/2))-TWENTYFIVE, x+width+15, (y+(height/2)));
-        g.drawLine(x+width+TWENTYFIVE, (y+(height/2))-TWENTYFIVE, x+width+35, (y+(height/2)));
+        g.drawLine(x-TWENTYFIVE, (y+(height/2))-TWENTYFIVE, x-15, (y+(height/2)));
+        g.drawLine(x-TWENTYFIVE, (y+(height/2))-TWENTYFIVE, x-35, (y+(height/2)));
 
         //Draw line showing the bottom of the stack
         g.drawLine(x+width+10, y+height, x+width+YOFFSET, y+height);
