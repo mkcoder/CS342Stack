@@ -169,12 +169,6 @@ public class StackGUI extends JApplet implements ActionListener
             JOptionPane.showMessageDialog(null, "there is nothing to pop/top.");
 
             // Redraw each frame if pop or top button is selected
-//        	for ( StackNode f : stackFrames ) 
-//        	{
-//        		//System.out.println(((StackFrame)f.data).userdata);
-//        		((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
-//        	}
-
             redrawStack(g);
             
             // Reset pop and top buttons
@@ -235,28 +229,26 @@ public class StackGUI extends JApplet implements ActionListener
             temp = true;
             topFrame = new StackFrame();
             
+            //Find the top of the stack
             for ( StackNode f : stackFrames )
             {
                 if(temp)
                 {
                     topFrame=((StackFrame)f.data);
-                    ((StackFrame)f.data).redraw(g, appletWidth, appletHeight, true);
                     temp = false;
-                }
-                else
-                {
-                    System.out.println(((StackFrame)f.data).userdata);
-                    ((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
                 }
 
             }
             
+            //Draw the stack
+            redrawStack(g);
             
             if(currentFrameCount>0)
             {
                 topFrame.flash(g,appletWidth,appletHeight);
             }
             topButtonClicked=false;
+            
         }
         else
         {
@@ -332,21 +324,14 @@ public class StackGUI extends JApplet implements ActionListener
     //PRE: g is initialized
     //POST: the stack is redrawn on the GUI
     {
-        boolean temp = true;
-        
+        //Iterate through the stack and redraw the frames
     	for( StackNode f : stackFrames ) 
     	{
-    		if(temp == true)						//If top of stack, draw the label
-    		{
-    			((StackFrame)f.data).redraw(g, appletWidth, appletHeight, true);
-    			temp = false;
-    		}
-    		
-    		else									//Otherwise, don't draw the "stack top" label
-    		{
-        		//System.out.println(((StackFrame)f.data).userdata);
-        		((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
-    		}
+        	((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
     	}
+    	
+    	//Draw the stack top label
+    	((StackFrame)stackFrames.top()).redraw(g, appletWidth, appletHeight, true);
+    	
     }
 }
