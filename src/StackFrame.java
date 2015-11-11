@@ -55,7 +55,7 @@ public class StackFrame
         g.fillRect(x, y, width, height);
     }
 
-    public void redraw(Graphics g, int appWidth, int appHeight)
+    public void redraw(Graphics g, int appWidth, int appHeight, boolean isTop)
     //PRE:  g is initialized, appWidth > 0, and appHeight > 0
     //POST: updates object and redraws with new coordinates based
     //      on new appWidth and appHeight
@@ -70,6 +70,13 @@ public class StackFrame
         g.setColor(new Color(0,0,0));      
         g.setFont(new Font("TimesRoman", Font.BOLD, 14));
         g.drawString((String)userdata, x+width/2, y+height/2);
+        
+        if(isTop == true)				//If the current object is the top of the stack, draw the label
+        {
+        	g.setColor(Color.BLACK);
+            g.drawLine(x+width+10, y, x+width+150, y);
+            g.drawString("Stack top",x+width+40, y);
+        }
     }
     
     
