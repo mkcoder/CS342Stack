@@ -37,7 +37,7 @@ public class StackFrame
         double stackBottom = (0.95-(0.75/totalStackFrameSize));
 		double stackFrameSize = ((0.75/totalStackFrameSize)*(currentStackFrameCount-1));
 		double yLoc = stackBottom -	stackFrameSize ;
-		this.stack = new ScaledPoint(0.10, yLoc , 0.40, 0.75/totalStackFrameSize);
+		this.stack = new ScaledPoint(0.25, yLoc , 0.40, 0.75/totalStackFrameSize);
         
         //Get a random color
         color = colors[(int)(Math.random()*colors.length)];
