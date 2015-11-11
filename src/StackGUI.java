@@ -196,7 +196,7 @@ public class StackGUI extends JApplet implements ActionListener
             // Search for top frame on stack
             for ( StackNode f : stackFrames )
             {
-                if(temp)                          // 
+                if(temp)                           
                 {
                     topFrame=((StackFrame)f.data);
                     temp=false;
@@ -242,8 +242,17 @@ public class StackGUI extends JApplet implements ActionListener
         	
         	for ( StackNode f : stackFrames ) 
         	{
-        		System.out.println(((StackFrame)f.data).userdata);
-        		((StackFrame)f.data).redraw(g, appletWidth, appletHeight,false);
+           		if(temp == true)						//If top of stack, draw the label
+        		{
+        			((StackFrame)f.data).redraw(g, appletWidth, appletHeight, true);
+        			temp = false;
+        		}
+        		
+        		else									//Otherwise, don't draw the "stack top" label
+        		{
+            		//System.out.println(((StackFrame)f.data).userdata);
+            		((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
+        		}
         	}
         	popButtonClicked = false;
         	
