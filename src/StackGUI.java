@@ -324,14 +324,25 @@ public class StackGUI extends JApplet implements ActionListener
     //PRE: g is initialized
     //POST: the stack is redrawn on the GUI
     {
-        //Iterate through the stack and redraw the frames
+    	//Data Dictionary
+    	boolean topOfStack;			//The top of the stack
+    	
+    	topOfStack = true;
+    	
+    	//Iterate through the stack in order to print out its contents
     	for( StackNode f : stackFrames ) 
     	{
-        	((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
+    		if(topOfStack == true)			//If it is the top of the stack, display top stack label
+    		{
+            	((StackFrame)f.data).redraw(g, appletWidth, appletHeight, true);
+            	topOfStack = false;
+    		}
+    		else							//If not, do not print the top stack label
+    		{
+    			((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
+    		}
+
     	}
-    	
-    	//Draw the stack top label
-    	((StackFrame)stackFrames.top()).redraw(g, appletWidth, appletHeight, true);
     	
     }
 }
