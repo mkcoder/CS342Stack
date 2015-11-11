@@ -9,10 +9,10 @@ import java.awt.Font;
 
 public class StackFrame
 {	
-	protected Object 		userdata;			//
-	protected static final Color[]	colors = new Color[5];
-	protected ScaledPoint 	stack;              	// Contains scaled coordinates for drawing
-	protected Color       	color;					// Default color of stack outline        
+	protected Object 		userdata;                      // Holds the user's data
+	protected static final Color[]	colors = new Color[5]; // Holds the choices for random colors
+	protected ScaledPoint 	stack;                         // Contains scaled coordinates for drawing
+	protected Color       	color;                         // Default color of stack outline
     
     public StackFrame()
     //POST: creates a box object with starting location at (0.25, 0.25),
@@ -39,6 +39,7 @@ public class StackFrame
 		double yLoc = stackBottom -	stackFrameSize ;
 		this.stack = new ScaledPoint(0.10, yLoc , 0.40, 0.75/totalStackFrameSize);
         
+        //Get a random color
         color = colors[(int)(Math.random()*colors.length)];
         
         //Ensures that every new stack frame's color is different from the top's
@@ -47,6 +48,8 @@ public class StackFrame
         	color = colors[(int)(Math.random()*colors.length)];
         }
         
+        //set the height and widths and x and y coordinates to the
+        //respective scaled values
         this.userdata = userData;
         int x = stack.scaledX(appWidth);
         int y = stack.scaledY(appHeight);
@@ -54,68 +57,87 @@ public class StackFrame
         int height = stack.scaledHeight(appHeight);               
         g.fillRect(x, y, width, height);
     }
+    
 
-    public void redraw(Graphics g, int appWidth, int appHeight)
+    public void redraw(Graphics g, int appWidth, int appHeight, boolean isTop)
     //PRE:  g is initialized, appWidth > 0, and appHeight > 0
     //POST: updates object and redraws with new coordinates based
     //      on new appWidth and appHeight
-    {                
+    {
+        //set the height and widths and x and y coordinates to the
+        //respective scaled values
         int x = stack.scaledX(appWidth);
         int y = stack.scaledY(appHeight);
         int width = stack.scaledWidth(appWidth);
         int height = stack.scaledHeight(appHeight);
-
-        g.setColor(color);   
+        
+        //Set frame to a random color and output the data
+        g.setColor(color);
         g.fillRect(x, y, width, height);
         g.setColor(new Color(0,0,0));      
         g.setFont(new Font("TimesRoman", Font.BOLD, 14));
         g.drawString((String)userdata, x+width/2, y+height/2);
+        
+        if(isTop == true)				//If the current object is the top of the stack, draw the label
+        {
+        	g.setColor(Color.BLACK);
+            g.drawLine(x+width+10, y, x+width+150, y);
+            g.drawString("Stack top",x+width+40, y);
+        }
     }
     
     
     public void pause()
-    //PRE:  NONE
     //POST: puts the thread to sleep for 1/8 of a second
     {
         try
         {
-            Thread.sleep(250);
+            Thread.sleep(250);                  //Pause program for 1/8 of a second
         }catch(InterruptedException ex)
         {
-            Thread.currentThread().interrupt();
+            Thread.currentThread().interrupt(); //Current thread was interrupted
         }
     }
     
     
     public void flash(Graphics g, int appWidth, int appHeight)
     //PRE:  g is initialized, appWidth > 0, and appHeight > 0
-    //POST: updates object and redraws with new coordinates based
-    //      on new appWidth and appHeight
-
+    //POST: flashes the top frame of the stack and returns the
+    //      frame back to normal afterwards.
     {
+        //set the height and widths and x and y coordinates to the
+        //respective scaled values
         int x = stack.scaledX(appWidth);
         int y = stack.scaledY(appHeight);
         int width = stack.scaledWidth(appWidth);
         int height = stack.scaledHeight(appHeight);
         
-        for(int i=0; i<2; i++){
+        
+        for(int i=0; i<2; i++) //Repeat the flash twice
+        {
+            
+            //Set frame to black and text to white, and draw
             g.setColor(Color.black);
             g.fillRect(x,y,width,height);
             g.setColor(Color.white);
             g.setFont(new Font("TimesRoman", Font.BOLD, 14));
             g.drawString((String)userdata, x+width/2, y+height/2);
             
+            //sleep for 1/8 of a second
             pause();
-                    
+            
+            //Set frame to white and text to black, and draw
             g.setColor(Color.white);
             g.fillRect(x,y,width,height);
             g.setColor(Color.black);
             g.setFont(new Font("TimesRoman", Font.BOLD, 14));
             g.drawString((String)userdata, x+width/2, y+height/2);
             
+            //sleep for 1/8 of a second
             pause();
         }
         
+        //Same as the redraw() method; set frame to a random color and output the data
         g.setColor(color);
         g.fillRect(x, y, width, height);
         g.setColor(new Color(0,0,0));
@@ -127,6 +149,5 @@ public class StackFrame
     //POST: FCTVAL == protected class member color
     {
     	return this.color;
-   	
     }
 }
