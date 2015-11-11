@@ -33,8 +33,6 @@ public class StackGUI extends JApplet implements ActionListener
     private int          appletWidth;            // Applet pixel width
     private int          appletHeight;           // Applet pixel Height
     private int          stackSize;              // Size of stack entered by user
-    //private int          xLoc;                   // X coordinate
-    //private int          yLoc;                   // Y coordinate
     private boolean      isCreate;               // Create button selected
 	private boolean      pushButtonClicked;      // Push button selected
 	private boolean      popButtonClicked;       // Pop button selected
@@ -49,8 +47,6 @@ public class StackGUI extends JApplet implements ActionListener
         
         // Initialize data dictionary variables
         message = "";                          // Default message
-        //xLoc = 0;                              // Default location values
-        //yLoc = 0;                              //   and location values
         isCreate = false;                      // Create button starts unselected
         stackFrames = new Stack();
         pushButtonClicked = false;			   // Push button is false as default
@@ -63,6 +59,7 @@ public class StackGUI extends JApplet implements ActionListener
     private void setupGUI()
     // POST: a gui interface is created
     {
+    	//Data Dictionary
         JPanel panel;                          // Main panel
         JPanel topRow;                         // Top row GUI components panel
         GridLayout layout;                     // Border layout 
@@ -177,8 +174,8 @@ public class StackGUI extends JApplet implements ActionListener
         	return;
         }
         
-        if(isCreate && pushButtonClicked && 
-           currentFrameCount < stackSize)         // 
+        if(isCreate && pushButtonClicked && 	  // If stack exists, push button was pressed, and 
+           currentFrameCount < stackSize)  		  // there is space on the stack, add a new frame       
         {
         	
             temp = true;
@@ -194,7 +191,19 @@ public class StackGUI extends JApplet implements ActionListener
                 }
             }
             
-            topColor = topFrame.getColor();
+            //Grab top of stack to ensure that no two colors are the same when adding a new frame
+//            topFrame = (StackFrame)stackFrames.top();
+//            
+//            if(topFrame == null)
+//            {
+//            	topColor = Color.BLACK;
+//            }
+//            else
+//            {
+            	topColor = topFrame.getColor();
+//            }
+            
+           
             currentFrameCount++;
             currentFrame = new StackFrame(g, message, appletWidth, 
             		appletHeight, currentFrameCount, stackSize, topColor);
@@ -211,8 +220,8 @@ public class StackGUI extends JApplet implements ActionListener
         	pushButtonClicked = false;
         }
 
-        else if ( isCreate && popButtonClicked &&
-             currentFrameCount > 0)
+        else if ( isCreate && popButtonClicked &&		//If stack exists, pop button was pressed,
+             currentFrameCount > 0)						// and there are frames on the stack, pop
         {
         	stackFrames.pop();
         	currentFrameCount--;
@@ -224,21 +233,13 @@ public class StackGUI extends JApplet implements ActionListener
         	popButtonClicked = false;
         	
         }
-        else if(topButtonClicked)
+        else if(topButtonClicked)					//Process action if user clicks top button
         {
             temp = true;
-            topFrame = new StackFrame();
+            //topFrame = new StackFrame();
             
-            //Find the top of the stack
-            for ( StackNode f : stackFrames )
-            {
-                if(temp)
-                {
-                    topFrame=((StackFrame)f.data);
-                    temp = false;
-                }
-
-            }
+            //Grab the top of the stack            
+            topFrame = (StackFrame)stackFrames.top();
             
             //Draw the stack
             redrawStack(g);
@@ -270,15 +271,15 @@ public class StackGUI extends JApplet implements ActionListener
             try
             {
             	String input = JOptionPane.showInputDialog("Please enter a stack size"
-                        + " greater than 0 and less than or equal to 25");
+                        + " greater than 0 and less than or equal to 15");
             	System.out.println(input);
                 stackSize = new Integer(input);
                 
-                while ( stackSize <= 0 || stackSize > 25 ) 
+                while ( stackSize <= 0 || stackSize > 15 ) 
                 {
-                	JOptionPane.showMessageDialog(null, "Please enter something between 0 - 25");
+                	JOptionPane.showMessageDialog(null, "Please enter something between 0 - 15");
                 	stackSize = Integer.parseInt(JOptionPane.showInputDialog("Please enter a stack size"
-                            + " greater than 0 and less than or equal to 25"));                	
+                            + " greater than 0 and less than or equal to 15"));                	
                 }
                 
                 stack = new Box();
