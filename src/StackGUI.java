@@ -275,10 +275,15 @@ public class StackGUI extends JApplet implements ActionListener
                 if(temp)
                 {
                     topFrame=((StackFrame)f.data);
+                    ((StackFrame)f.data).redraw(g, appletWidth, appletHeight, true);
                     temp = false;
                 }
-                System.out.println(((StackFrame)f.data).userdata);
-                ((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
+                else
+                {
+                    System.out.println(((StackFrame)f.data).userdata);
+                    ((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
+                }
+
             }
             
             if(currentFrameCount>0)
