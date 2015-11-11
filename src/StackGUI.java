@@ -33,8 +33,8 @@ public class StackGUI extends JApplet implements ActionListener
     private int          appletWidth;            // Applet pixel width
     private int          appletHeight;           // Applet pixel Height
     private int          stackSize;              // Size of stack entered by user
-    private int          xLoc;                   // X coordinate
-    private int          yLoc;                   // Y coordinate
+    //private int          xLoc;                   // X coordinate
+    //private int          yLoc;                   // Y coordinate
     private boolean      isCreate;               // Create button selected
 	private boolean      pushButtonClicked;      // Push button selected
 	private boolean      popButtonClicked;       // Pop button selected
@@ -49,14 +49,14 @@ public class StackGUI extends JApplet implements ActionListener
         
         // Initialize data dictionary variables
         message = "";                          // Default message
-        xLoc = 0;                              // Default stack size
-        yLoc = 0;                              //   and location values
+        //xLoc = 0;                              // Default location values
+        //yLoc = 0;                              //   and location values
         isCreate = false;                      // Create button starts unselected
         stackFrames = new Stack();
         pushButtonClicked = false;			   // Push button is false as default
         popButtonClicked = false;			   // Pop button is false as default
         topButtonClicked = false;			   // Top button is false as default
-        currentFrameCount = 0;
+        currentFrameCount = 0;                 // Number of frames on stack
         
     }
 
@@ -126,56 +126,74 @@ public class StackGUI extends JApplet implements ActionListener
     public void paint(Graphics g)
     {
     	//Data Dictionary
-    	Color topColor;						//Top frame's color
-        super.paint(g);
+    	Color topColor;						 // Top frame's color
+        boolean temp;                        // Temporary flag variable
+        StackFrame topFrame;                 // Points to top frame in stack
 
+        super.paint(g);
+        
         appletHeight = getHeight();          // Height of applet in pixels
         appletWidth = getWidth();            // Width of applet in pixels
-        
-        if( isCreate )                         // Draw stack since user clicked create stack button
+        temp = true;                         // Flag is set to true by default
+
+        if(isCreate)                         // Draw stack since user clicked create stack button
         {
             // enable the buttons
             pushButton.setEnabled(true);
             popButton.setEnabled(true);
             topButton.setEnabled(true);
-            
+           
+            // update stack drawing
             stack.redraw(g, appletWidth, appletHeight);                        
         }
-        
-        if ( (currentFrameCount+1 > stackSize) && pushButtonClicked )
+ 
+        if((currentFrameCount+1 > stackSize) && pushButtonClicked)      // Draw stack frames 
         {
+            // Display error if stack is full
         	JOptionPane.showMessageDialog(null, "segfault stackoverflow.");
+
+            // Redraw each frame pushed onto stack
         	for ( StackNode f : stackFrames ) 
         	{
-        		System.out.println(((StackFrame)f.data).userdata);
+        		//System.out.println(((StackFrame)f.data).userdata);
         		((StackFrame)f.data).redraw(g, appletWidth, appletHeight);
         	}
+
+            // Reset push button
         	pushButtonClicked = false;
         	return;
         }
         
-        if ( (currentFrameCount <= 0) && (popButtonClicked || topButtonClicked) )
+        if((currentFrameCount <= 0) && 
+           (popButtonClicked || topButtonClicked)) // Redraw stack frames after selecting pop or top 
         {
-        	JOptionPane.showMessageDialog(null, "there is nothing to pop/top.");
+        	// Display error if stack is empty
+            JOptionPane.showMessageDialog(null, "there is nothing to pop/top.");
+
+            // Redraw each frame if pop or top button is selected
         	for ( StackNode f : stackFrames ) 
         	{
-        		System.out.println(((StackFrame)f.data).userdata);
+        		//System.out.println(((StackFrame)f.data).userdata);
         		((StackFrame)f.data).redraw(g, appletWidth, appletHeight);
         	}
+
+            // Reset pop and top buttons
         	popButtonClicked = false;
         	topButtonClicked = false;
         	return;
         }
         
-        if ( isCreate && pushButtonClicked && 
-             currentFrameCount < stackSize )
+        if(isCreate && pushButtonClicked && 
+           currentFrameCount < stackSize)         // 
         {
         	
-            boolean temp=true;
-            StackFrame topFrame = new StackFrame();
+            temp = true;
+            topFrame = new StackFrame();          // Create new Stack Frame
+
+            // Search for top frame on stack
             for ( StackNode f : stackFrames )
             {
-                if(temp)
+                if(temp)                          // 
                 {
                     topFrame=((StackFrame)f.data);
                     temp=false;
@@ -269,8 +287,6 @@ public class StackGUI extends JApplet implements ActionListener
                             + " greater than 0 and less than or equal to 25"));                	
                 }
                 
-                // TODO: draw the bottom of the stack and the end of the stack 
-                // look inside to find out where to draw it 
                 stack = new Box();
                 isCreate = true;
                 createStack.setEnabled(false);    //Deactivate because user can create stack once
@@ -295,25 +311,17 @@ public class StackGUI extends JApplet implements ActionListener
 
             currentFrame = new StackFrame();
             pushButtonClicked = true;
-            // TODO: put message into stack object
-            
-            // TODO: call push from stack back-end class and update paint
-            
         }
 
         if(e.getSource() == popButton)
         {
-            // TODO: // call pop from stack and update paint
         	popButtonClicked = true;
-            
-
         }
         
         if(e.getSource() == topButton)
         {
             topButtonClicked=true;
         }
-        
 
         repaint();
     }
