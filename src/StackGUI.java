@@ -235,14 +235,14 @@ public class StackGUI extends JApplet implements ActionListener
         }
         else if(topButtonClicked)
         {
-            boolean temp=true;
-            StackFrame topFrame = new StackFrame();
+            temp = true;
+            topFrame = new StackFrame();
             for ( StackNode f : stackFrames )
             {
                 if(temp)
                 {
                     topFrame=((StackFrame)f.data);
-                    temp=false;
+                    temp = false;
                 }
                 System.out.println(((StackFrame)f.data).userdata);
                 ((StackFrame)f.data).redraw(g, appletWidth, appletHeight);
