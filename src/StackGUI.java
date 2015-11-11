@@ -300,6 +300,7 @@ public class StackGUI extends JApplet implements ActionListener
         		System.out.println(((StackFrame)f.data).userdata);
         		((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
         	}
+        	((StackFrame)stackFrames.top()).redraw(g, appletWidth, appletHeight, true);
         	System.out.println("---------");
         }
         
