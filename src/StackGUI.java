@@ -1,4 +1,4 @@
-// Programmers: Chris Griffith, Oliver San Juan, Muhammad, Ken Devane
+// Programmers: Chris Griffith, Oliver San Juan, Muhammad K. Khan, Ken Devane
 // Assignment:  Project 3, Data Structure Visualization
 // Date:        November 4, 2015
 // Description: This class is the GUI interface for visualizing 
@@ -43,7 +43,7 @@ public class StackGUI extends JApplet implements ActionListener
     @Override
     public void init()
     {
-        this.setupGUI();                       // Setup the gui
+        this.setupGUI();                       // Setup the GUI
         
         // Initialize data dictionary variables
         message = "";                          // Default message
@@ -77,7 +77,8 @@ public class StackGUI extends JApplet implements ActionListener
         topButton = new JButton("Top");
         createStack = new JButton("Create Stack");
         reset = new JButton("Reset");
-
+        
+        //Set the layout to BorderLayout
         panel.setLayout(new BorderLayout());
 
         // background color for north panel
@@ -179,25 +180,32 @@ public class StackGUI extends JApplet implements ActionListener
         {
         	
             temp = true;
-            topFrame = new StackFrame();          // Create new Stack Frame
-
+            
+            // Create new Stack Frame
+            topFrame = new StackFrame();
+            
             // Search for top frame on stack
             for ( StackNode f : stackFrames )
             {
                 if(temp)                           
                 {
+                    //store the first frame into temp
                     topFrame=((StackFrame)f.data);
                     temp=false;
                 }
             }
             
-
+            //Get the color of the top frame
             topColor = topFrame.getColor();
             
-           
+            //increase the current number of frames
             currentFrameCount++;
+            
+            //create a new frame with the specified data that the user entered
             currentFrame = new StackFrame(g, message, appletWidth, 
             		appletHeight, currentFrameCount, stackSize, topColor);
+            
+            //push the current frame onto the stack
             stackFrames.push(currentFrame);
             System.out.println("---------");
             
@@ -214,7 +222,10 @@ public class StackGUI extends JApplet implements ActionListener
         else if ( isCreate && popButtonClicked &&		//If stack exists, pop button was pressed,
              currentFrameCount > 0)						// and there are frames on the stack, pop
         {
+            //Pop the top frame from the stack
         	stackFrames.pop();
+            
+            //Decrement the current number of frames
         	currentFrameCount--;
             System.out.println("Frame count is "+currentFrameCount);
         	
@@ -247,6 +258,8 @@ public class StackGUI extends JApplet implements ActionListener
         {											//	the applet window
         	System.out.println("---------");
 
+            //Nothing was changed or clicked, but the applet was resized, so redraw the applet
+            //in its current state with the proper scaling
         	redrawStack(g);
         	
         	System.out.println("---------");
@@ -282,7 +295,7 @@ public class StackGUI extends JApplet implements ActionListener
                 createStack.setEnabled(false);    //Deactivate because user can create stack once
 
             }
-            catch(NullPointerException npe)
+            catch(NullPointerException npe)       //An error occured, so catch the exception
             {
                 stackSize = 0;
             }
@@ -292,24 +305,29 @@ public class StackGUI extends JApplet implements ActionListener
         {
             try
             {
-                message = pushText.getText();    // Get the text from textbox
+                //Get the text from textbox
+                message = pushText.getText();
             }
             catch(NullPointerException npe)
             {
+                //No data was entered, so the message will be an empty string
                 message = "";
             }
-
-            currentFrame = new StackFrame();      // Create a new frame
+            
+            //Create a new frame
+            currentFrame = new StackFrame();
             pushButtonClicked = true;
         }
 
-        if(e.getSource() == popButton)            // User clicked pop button
+        if(e.getSource() == popButton)            // User clicked the pop button
         {
+            //Set the appropriate flag to true
         	popButtonClicked = true;
         }
         
-        if(e.getSource() == topButton)            // User clicked top button
+        if(e.getSource() == topButton)            // User clicked the top button
         {
+            //Set the appropriate flag to true
             topButtonClicked=true;
         }
 
@@ -328,17 +346,15 @@ public class StackGUI extends JApplet implements ActionListener
     	//Iterate through the stack in order to print out its contents
     	for( StackNode f : stackFrames ) 
     	{
-    		if(topOfStack == true)			//If it is the top of the stack, display top stack label
+    		if(topOfStack == true)		//If it is the top of the stack, display top stack label
     		{
             	((StackFrame)f.data).redraw(g, appletWidth, appletHeight, true);
             	topOfStack = false;
     		}
-    		else							//If not, do not print the top stack label
+    		else						//If not, do not print the top stack label
     		{
     			((StackFrame)f.data).redraw(g, appletWidth, appletHeight, false);
     		}
-
     	}
-    	
     }
 }
