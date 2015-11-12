@@ -26,7 +26,59 @@ public class ScaledPoint
         this.width = width;
         this.height = height;
     }
-    
+
+    public void setXLoc(double x)
+    //PRE:  x > 0.0
+    //POST: sets this x to x
+    {
+        this.x=x;
+    }
+
+    public void setYLoc(double y)
+    //PRE:  y > 0.0
+    //POST: sets this y to y
+    {
+        this.y=y;
+    }
+
+    public void setWidth(double width)
+    //PRE:  width > 0.0
+    //POST: sets this width to width
+    {
+        this.width=width;
+    }
+
+    public void setHeight(double height)
+    //PRE:  height > 0.0
+    //POST: sets this height to height
+    {
+        this.height=height;
+    }
+
+    public double getXLoc()
+    //POST: FCTVAL == this x location
+    {
+        return this.x;
+    }
+
+    public double getYLoc()
+    //POST: FCTVAL == this y location
+    {
+        return this.y;
+    }
+
+    public double getWidth()
+    //POST: FCTVAL == this width location
+    {
+        return this.width;
+    }
+
+    public double getHeight()
+    //POST: FCTVAL == this height location
+    {
+        return this.height;
+    }
+
     public int scaledX(int appletWidth)
     //PRE:  appletWidth > 0
     //POST: FCTVAL == the scaled x coordinate based on appletWidth
