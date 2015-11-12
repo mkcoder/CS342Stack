@@ -9,43 +9,46 @@ import java.awt.Font;
 
 public class StackFrame
 {	
+	protected static final Color[]	COLORS = new Color[5]; // Holds the choices for random colors
 	protected Object 		userdata;                      // Holds the user's data
-	protected static final Color[]	colors = new Color[5]; // Holds the choices for random colors
 	protected ScaledPoint 	stack;                         // Contains scaled coordinates for drawing
 	protected Color       	color;                         // Default color of stack outline
     
     public StackFrame()
-    //POST: creates a box object with starting location at (0.25, 0.25),
-    //      width set to 0.25, height set to 0.75, and color set to BLACK
+    //POST: creates a box object with starting location at (0.25, 0.20),
+    //      width set to 0.40, height set to 0.75, color set to BLACK and
+    //      COLORS set to chosen stack frame colors
     {
-        this.stack = new ScaledPoint(0.10, 0.20, 0.40, 0.75);      
+        this.stack = new ScaledPoint(0.25, 0.20, 0.40, 0.75);      
         color = Color.BLACK;
-        colors[0] = new Color(0, 102, 255);
-        colors[1] = new Color(128, 204, 255);
-        colors[2] = new Color(9, 156, 255);
-        colors[3] = new Color(255, 68, 68);
-        colors[4] = new Color(51, 255, 51);
+        COLORS[0] = new Color(0, 102, 255);
+        COLORS[1] = new Color(128, 204, 255);
+        COLORS[2] = new Color(9, 156, 255);
+        COLORS[3] = new Color(255, 68, 68);
+        COLORS[4] = new Color(51, 255, 51);
     }
    
     public StackFrame(Graphics g, Object userData, int appWidth, int appHeight, 
                       int currentStackFrameCount, int totalStackFrameSize, Color topColor)
-    //PRE:  g is initialized, appWidth > 0, and appHeight > 0
+    //PRE:  g, userdata, and topColor are initialized, appWidth, appHeight, 
+    //      currentStackFrameCount, and totalStackFrameSize are > 0, 
     //POST: creates a box object and draws this box a with starting 
-    //      location at (0.25, 0.25), width set to 0.25, height 
-    //      set to 0.75, and color set to BLACK
+    //      location at (0.25, yLoc), width set to 0.40, height 
+    //      set to 0.75/totalStackFrameSize, and COLORS set to randomly
     {    	
         double stackBottom = (0.95-(0.75/totalStackFrameSize));
 		double stackFrameSize = ((0.75/totalStackFrameSize)*(currentStackFrameCount-1));
 		double yLoc = stackBottom -	stackFrameSize ;
-		this.stack = new ScaledPoint(0.25, yLoc , 0.40, 0.75/totalStackFrameSize);
+		
+        this.stack = new ScaledPoint(0.25, yLoc , 0.40, 0.75/totalStackFrameSize);
         
         //Get a random color
-        color = colors[(int)(Math.random()*colors.length)];
+        color = COLORS[(int)(Math.random()*COLORS.length)];
         
         //Ensures that every new stack frame's color is different from the top's
         while(color.equals(topColor))
         {
-        	color = colors[(int)(Math.random()*colors.length)];
+        	color = COLORS[(int)(Math.random()*COLORS.length)];
         }
         
         //set the height and widths and x and y coordinates to the
@@ -78,7 +81,7 @@ public class StackFrame
         g.setFont(new Font("TimesRoman", Font.BOLD, 14));
         g.drawString((String)userdata, x+width/2, y+height/2);
         
-        if(isTop == true)				//If the current object is the top of the stack, draw the label
+        if(isTop == true)	     //If the current object is the top of the stack, draw the label
         {
         	g.setColor(Color.BLACK);
             g.drawLine(x+width+10, y, x+width+150, y);
