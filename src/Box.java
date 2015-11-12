@@ -10,7 +10,7 @@ public class Box
 {
     private static final int XOFFSET = 40;      // X coordinate offset for stack labels
     private static final int YOFFSET = 150;     // Y coordinate offset for stack labels
-    private static final int TWENTYFIVE = 25;   // Arrow head ratio
+    private static final int RATIO = 25;   // Arrow head ratio
     
     protected ScaledPoint stack;                // Contains scaled coordinates for drawing
     protected Color       color;                // Default color of stack outline
@@ -54,16 +54,15 @@ public class Box
         int height = stack.scaledHeight(appHeight);
 
         g.setColor(color);
-        System.out.println("I WAS CALLED");
 
         //Draw label and arrow to show how the stack grows
         g.drawString("Stack Grows", x-3*XOFFSET, (y+(height/2))+10);
-        g.drawLine(x-TWENTYFIVE, (y+(height/2))+TWENTYFIVE, 
-                   x-TWENTYFIVE, (y+(height/2)-TWENTYFIVE));
+        g.drawLine(x-RATIO, (y+(height/2))+RATIO, 
+                   x-RATIO, (y+(height/2)-RATIO));
 
         //Draw arrow head
-        g.drawLine(x-TWENTYFIVE, (y+(height/2))-TWENTYFIVE, x-15, (y+(height/2)));
-        g.drawLine(x-TWENTYFIVE, (y+(height/2))-TWENTYFIVE, x-35, (y+(height/2)));
+        g.drawLine(x-RATIO, (y+(height/2))-RATIO, x-15, (y+(height/2)));
+        g.drawLine(x-RATIO, (y+(height/2))-RATIO, x-35, (y+(height/2)));
 
         //Draw line showing the bottom of the stack
         g.drawLine(x+width+10, y+height, x+width+YOFFSET, y+height);
