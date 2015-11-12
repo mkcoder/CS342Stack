@@ -1,4 +1,4 @@
-// Programmers: Chris Griffith, Oliver San Juan, Muhammad, Ken Devane
+// Programmers: Chris Griffith, Oliver San Juan, Muhammad K. Khan, Ken Devane
 // Assignment:  Project 3, Data Structure Visualization
 // Date:        November 4, 2015
 // Description: Class which holds information about stack drawing
