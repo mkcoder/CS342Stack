@@ -191,17 +191,8 @@ public class StackGUI extends JApplet implements ActionListener
                 }
             }
             
-            //Grab top of stack to ensure that no two colors are the same when adding a new frame
-//            topFrame = (StackFrame)stackFrames.top();
-//            
-//            if(topFrame == null)
-//            {
-//            	topColor = Color.BLACK;
-//            }
-//            else
-//            {
-            	topColor = topFrame.getColor();
-//            }
+
+            topColor = topFrame.getColor();
             
            
             currentFrameCount++;
@@ -244,17 +235,23 @@ public class StackGUI extends JApplet implements ActionListener
             //Draw the stack
             redrawStack(g);
             
+<<<<<<< HEAD
+            if(currentFrameCount>0)					//If there is a frame in the stack, show flash
+            {										//	animation
+                topFrame.flash(g,appletWidth,appletHeight);
+=======
             if(currentFrameCount>0)                 //Check to make sure there is a top element to flash
             {
                 topFrame.flash(g,appletWidth,appletHeight); //Flash the top frame
+>>>>>>> 3dcd0a0304712ffe3ef8b1174146a38441d4b4e7
             }
             
             //
             topButtonClicked=false;
             
         }
-        else
-        {
+        else										//Handle other user actions, such as resizing
+        {											//	the applet window
         	System.out.println("---------");
 
         	redrawStack(g);
