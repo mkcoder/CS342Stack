@@ -17,14 +17,14 @@ public class Stack implements Iterable<StackNode>
 	}
 	
 	public Object top()
-	// POST: FCTVAL == return the current value on top of the stack 
+	// POST: FCTVAL == the current value on top of the stack 
 	{
 		return head.data;
 	}
 	
 	public Object pop()
-	// POST: pushes the top of the stack and returns it
-	// FCTVAL == return the value at the top of the stack
+	// POST: pops the top off of the stack and returns the new head
+	// FCTVAL == return the new value at the top of the stack
 	{
 		StackNode returnNode = head;		
 		head = head.next;
