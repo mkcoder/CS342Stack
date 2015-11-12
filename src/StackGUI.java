@@ -235,10 +235,18 @@ public class StackGUI extends JApplet implements ActionListener
             //Draw the stack
             redrawStack(g);
             
+<<<<<<< HEAD
             if(currentFrameCount>0)					//If there is a frame in the stack, show flash
             {										//	animation
                 topFrame.flash(g,appletWidth,appletHeight);
+=======
+            if(currentFrameCount>0)                 //Check to make sure there is a top element to flash
+            {
+                topFrame.flash(g,appletWidth,appletHeight); //Flash the top frame
+>>>>>>> 3dcd0a0304712ffe3ef8b1174146a38441d4b4e7
             }
+            
+            //
             topButtonClicked=false;
             
         }
@@ -261,18 +269,21 @@ public class StackGUI extends JApplet implements ActionListener
         {
             try
             {
+                //String to store the user's input
             	String input = JOptionPane.showInputDialog("Please enter a stack size"
                         + " greater than 0 and less than or equal to 15");
             	System.out.println(input);
+                
                 stackSize = new Integer(input);
                 
-                while ( stackSize <= 0 || stackSize > 15 ) 
+                while ( stackSize <= 0 || stackSize > 15 )  //Loop for error checking the input
                 {
                 	JOptionPane.showMessageDialog(null, "Please enter something between 0 - 15");
                 	stackSize = Integer.parseInt(JOptionPane.showInputDialog("Please enter a stack size"
                             + " greater than 0 and less than or equal to 15"));                	
                 }
                 
+                //Create the outline for a stack
                 stack = new Box();
                 isCreate = true;
                 createStack.setEnabled(false);    //Deactivate because user can create stack once
@@ -288,23 +299,23 @@ public class StackGUI extends JApplet implements ActionListener
         {
             try
             {
-                message = pushText.getText();
+                message = pushText.getText();    // Get the text from textbox
             }
             catch(NullPointerException npe)
             {
                 message = "";
             }
 
-            currentFrame = new StackFrame();
+            currentFrame = new StackFrame();      // Create a new frame
             pushButtonClicked = true;
         }
 
-        if(e.getSource() == popButton)
+        if(e.getSource() == popButton)            // User clicked pop button
         {
         	popButtonClicked = true;
         }
         
-        if(e.getSource() == topButton)
+        if(e.getSource() == topButton)            // User clicked top button
         {
             topButtonClicked=true;
         }

@@ -1,6 +1,9 @@
-import java.util.Iterator;
+// Programmers: Chris Griffith, Oliver San Juan, Muhammad, Ken Devane
+// Assignment:  Project 3, Data Structure Visualization
+// Date:        November 4, 2015
+// Description: This class represents the stack and it holds the head of the stack.
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import java.util.Iterator;
 
 public class Stack implements Iterable<StackNode>
 {
