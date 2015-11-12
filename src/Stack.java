@@ -32,23 +32,32 @@ public class Stack implements Iterable<StackNode>
 	}
 
 	@Override
-	public Iterator<StackNode> iterator() {	
-		return new Iterator<StackNode>() {
-			StackNode temp = head;
+	public Iterator<StackNode> iterator() 
+	{		
+		return new Iterator<StackNode>() 
+		{						
+			StackNode temp = head;				// the head of the stack.
+			
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext() 
+			{ 		 
+			// POST FCTVAL==return true if are at the end of the stack
 				return temp != null;
 			}
 
 			@Override
-			public StackNode next() {
+			public StackNode next() 
+			{	
+			// POST FCTVAL == get the top of the stack and moves everything up
 				StackNode r = temp;
 				temp = temp.next;
 				return r;
 			}
 			
 			@Override
-			public void remove() {
+			public void remove()
+			// POST: used for backward compatibility
+			{				
 
 				throw new UnsupportedOperationException();
 			}		
